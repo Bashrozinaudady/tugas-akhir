@@ -20,4 +20,9 @@ class Produk extends Model
     {
         return $this->belongsTo(KategoriProduk::class, 'kategori_id');
     }
+
+    public function order()
+    {
+        return $this->hasOne(TransaksiOrder::class);
+    }
 }

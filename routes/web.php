@@ -4,8 +4,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PemesananController;
-use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\TransaksiKeluarController;
+use App\Http\Controllers\TransaksiMasukController;
+use App\Http\Controllers\TransaksiOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +33,12 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/produk', ProdukController::class);
     Route::resource('/kategori', KategoriProdukController::class);
-    Route::resource('/pemesanan', PemesananController::class);
-    Route::resource('/pengeluaran', PengeluaranController::class);
+
+    Route::group(['prefix' => 'transaksi'], function(){
+        Route::resource('/pemesanan', TransaksiOrderController::class);
+        Route::resource('/masuk', TransaksiMasukController::class);
+        Route::resource('/keluar', TransaksiKeluarController::class);
+    });
 
 });
 
