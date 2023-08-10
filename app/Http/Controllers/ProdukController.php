@@ -54,6 +54,14 @@ class ProdukController extends Controller
         }
     }
 
+    public function get($id)
+    {
+        $data = Produk::where('id', $id)->with('kategori_produk')->first();
+        if ($data) {
+            return response()->json($data);
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

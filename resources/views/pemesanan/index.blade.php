@@ -15,46 +15,26 @@
             <div class="col-lg-12">
 
                 <div class="card">
+                    <div class="card-header">
+
+                        <h5 class="">Data Pemesanan</h5>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Data Pemesanan</h5>
-                        <a href="" class="btn btn-primary btn-sm">Tambah</a>
+                        {{-- <a href="" class="btn btn-primary btn-sm">Tambah</a> --}}
                         <!-- Default Table -->
-                        {{ $dataTable->table() }}
-                        {{-- <table class="table">
+                        {{-- {{ $dataTable->table() }} --}}
+                        <table class="table data-table">
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
+                                    <th scope="col">No. Transaksi</th>
                                     <th scope="col">Nama Pemesan</th>
-                                    <th scope="col">Nama Produk</th>
-                                    <th scope="col">Nama Kategori</th>
-                                    <th scope="col">Harga Satuan</th>
-                                    <th scope="col">Jumlah</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $item)
-                                    <tr>
-                                        <td scope="row">{{ $loop->iteration }}</td>
-                                        <td>{{ $item->sales->nama }}</td>
-                                        <td>{{ $item->produk->nama }}</td>
-                                        <td>{{ $item->produk->kategori_produk->nama }}</td>
-                                        <td>{{ number_format($item->produk->harga, 2, ',', '.') }}</td>
-                                        <td>{{ $item->jumlah }}</td>
-                                        <td>
-                                            <form method="POST" action="{{ route('pemesanan.destroy', $item->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <a href="" class="btn btn-sm btn-primary">Lihat</a>
-                                                <a href="{{ route('pemesanan.edit', $item->id) }}"
-                                                    class="btn btn-sm btn-warning">Edit</a>
-                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
                             </tbody>
-                        </table> --}}
+                        </table>
                         <!-- End Default Table Example -->
                     </div>
                 </div>
@@ -64,5 +44,49 @@
 @endsection
 
 @push('javascript')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    {{-- {{ $dataTable->scripts(attributes: ['type' => 'module']) }} --}}
+    <script>
+        $(function() {
+            $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                "bDestroy": true,
+                ajax: "{{ route('pemesanan.index') }}",
+                // dom: 'Bfrtip',
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print', {
+                        text: 'TRANSAKSI BARU',
+                        action: function(e, dt, node, config) {
+                            window.location.href = "{{ route('pemesanan.create') }}"
+                        },
+                        className: 'btn btn-primary'
+                    }
+                ],
+                columns: [{
+                        data: 'DT_RowIndex',
+                        'orderable': false,
+                        'searchable': false,
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'kode',
+                        name: 'kode',
+                    },
+                    {
+                        data: 'nama_pemesan',
+                        name: 'nama_pemesan',
+                    },
+
+                    {
+                        data: 'action',
+                        name: 'action',
+                        class: 'text-center',
+                        orderable: false,
+                        searchable: false,
+                    },
+                ]
+            })
+        })
+    </script>
 @endpush

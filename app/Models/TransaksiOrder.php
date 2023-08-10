@@ -20,4 +20,9 @@ class TransaksiOrder extends Model
     {
         return $this->belongsTo(Produk::class);
     }
+
+    public function transaksi_order_detils()
+    {
+        return $this->hasMany(TransaksiOrderDetil::class);
+    }
 }

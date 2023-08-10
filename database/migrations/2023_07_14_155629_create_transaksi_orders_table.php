@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('kode');
             $table->unsignedBigInteger('sales_id');
-            $table->unsignedBigInteger('produk_id');
-            $table->integer('jumlah');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
 
-            $table->foreign('produk_id')->references('id')->on('produks')->onDelete('cascade');
             $table->foreign('sales_id')->references('id')->on('sales')->onDelete('cascade');
         });
     }

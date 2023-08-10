@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\TransaksiKeluarController;
 use App\Http\Controllers\TransaksiMasukController;
 use App\Http\Controllers\TransaksiOrderController;
@@ -32,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('/produk', ProdukController::class);
+    Route::get('produk/{id}/get', [ProdukController::class, 'get'])->name('produk.get');
+    Route::resource('sales', SalesController::class);
+    Route::get('sales/{id}/get', [SalesController::class, 'get'])->name('sales.get');
     Route::resource('/kategori', KategoriProdukController::class);
 
     Route::group(['prefix' => 'transaksi'], function(){

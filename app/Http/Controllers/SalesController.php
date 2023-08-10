@@ -34,9 +34,16 @@ class SalesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sales $sales)
+    public function show($id)
     {
-        //
+        $data = Sales::findOrFail($id);
+        return response()->json($data);
+    }
+    
+    public function get($id)
+    {
+        $data = Sales::findOrFail($id);
+        return response()->json($data);
     }
 
     /**

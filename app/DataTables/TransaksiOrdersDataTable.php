@@ -58,7 +58,7 @@ class TransaksiOrdersDataTable extends DataTable
                     ->setTableId('transaksiorders-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
+                    // ->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
@@ -66,8 +66,8 @@ class TransaksiOrdersDataTable extends DataTable
                         Button::make('csv'),
                         Button::make('pdf'),
                         Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
+                        // Button::make('reset'),
+                        // Button::make('reload')
                     ]);
     }
 
@@ -81,7 +81,7 @@ class TransaksiOrdersDataTable extends DataTable
             Column::make('kode')->searchable(true),
             Column::make('nama_pemesan')->searchable(true),
             Column::make('nama_produk')->searchable(true),
-            Column::make('kategori'),
+            Column::make('kategori')->searchable(true),
             Column::make('harga'),
             Column::computed('action')
                   ->exportable(false)

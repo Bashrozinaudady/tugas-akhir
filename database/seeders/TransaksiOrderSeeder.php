@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\TransaksiOrder;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,10 +15,9 @@ class TransaksiOrderSeeder extends Seeder
     public function run(): void
     {
         TransaksiOrder::create([
-            'kode' => 'PO001',
+            'kode' => 'PO001' . Carbon::now()->format('mY'),
             'sales_id' => 1,
-            'produk_id' => 1,
-            'jumlah' => 5,
+            'keterangan' => 'tes keterangan',
         ]);
     }
 }
