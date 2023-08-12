@@ -41,7 +41,7 @@
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-4 col-form-label">Nominal</label>
                                     <div class="col-sm-8">
-                                        <input type="number" name="nominal" class="form-control">
+                                        <input type="number" name="nominal" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">

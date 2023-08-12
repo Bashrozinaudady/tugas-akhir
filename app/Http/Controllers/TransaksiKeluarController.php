@@ -64,17 +64,26 @@ class TransaksiKeluarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TransaksiKeluar $transaksiKeluar)
+    public function edit($id)
     {
-        //
+        $data = TransaksiKeluar::where('id', $id)->first();
+
+        return view('pengeluaran.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TransaksiKeluar $transaksiKeluar)
+    public function update(Request $request, $id)
     {
-        //
+        $data = TransaksiKeluar::where('id', $id)->first();
+        $data->mitra = $request->mitra;
+        $data->keterangan = $request->keterangan;
+        $data->nominal = $request->nominal;
+
+        $data->update();
+
+        return redirect()->route('keluar.index');
     }
 
     /**

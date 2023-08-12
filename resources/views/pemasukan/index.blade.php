@@ -41,11 +41,11 @@
                                         <td>
                                             {{-- <a href="http://" class="btn btn-sm btn-primary">Lihat</a>
                     <a href="http://" class="btn btn-sm btn-warning">Edit</a> --}}
-                                            <form method="POST" action="{{ route('pemesanan.destroy', $item->id) }}">
+                                            <form method="POST" action="{{ route('masuk.destroy', $item->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <a href="" class="btn btn-sm btn-primary">Lihat</a>
-                                                <a href="{{ route('pemesanan.edit', $item->id) }}"
+                                                <a href="{{ route('masuk.edit', $item->id) }}"
                                                     class="btn btn-sm btn-warning">Edit</a>
                                                 <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                             </form>

@@ -39,8 +39,8 @@
                                         <td>{{ $item->nominal }}</td>
                                         <td>{{ $item->tanggal_transaksi }}</td>
                                         <td>
-                                            <a href="{{ route('produk.show', $item->id)}}" class="btn btn-sm btn-primary">Lihat</a>
-                                            <a href="{{ route('produk.edit', $item->id)}}" class="btn btn-sm btn-warning">Edit</a>
+                                            <a href="{{ route('keluar.show', $item->id)}}" class="btn btn-sm btn-primary">Lihat</a>
+                                            <a href="{{ route('keluar.edit', $item->id)}}" class="btn btn-sm btn-warning">Edit</a>
                                             <a href="http://" class="btn btn-sm btn-danger">Hapus</a>
                                         </td>
                                     </tr>

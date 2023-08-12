@@ -72,17 +72,29 @@ class TransaksiMasukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TransaksiMasuk $transaksiMasuk)
+    public function edit($id)
     {
-        //
+        $data=TransaksiMasuk::where("id",$id)->first();
+        $mitra=Mitra::all();
+        return view("pemasukan.edit", compact(["data","mitra"]));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TransaksiMasuk $transaksiMasuk)
+    public function update(Request $request,$id)
     {
-        //
+        // dd($request->all());
+        $data=TransaksiMasuk::where("id",$id)->first();
+        $data->mitra_id = $request->mitra_id;
+        $data->keterangan = $request->keterangan;
+        $data->nominal = $request->nominal;
+        $data->tanggal_transaksi = $request->tanggal_transaksi;
+
+        $data->update();
+
+        return redirect()->route('masuk.index');
+
     }
 
     /**
