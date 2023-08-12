@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             SalesSeeder::class,
             TransaksiOrderSeeder::class,
             TransaksiOrderDetilSeeder::class,
+            MitraSeeder::class,
+            TransaksiMasukSeeder::class,
         ]);
     }
 }

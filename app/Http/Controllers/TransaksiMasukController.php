@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TransaksiMasuk;
+use Carbon\Carbon;
+use App\Models\Mitra;
+use App\Helpers\Docnumber;
 use Illuminate\Http\Request;
+use App\Models\TransaksiMasuk;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiMasukController extends Controller
 {
@@ -22,7 +26,9 @@ class TransaksiMasukController extends Controller
      */
     public function create()
     {
-        //
+        $mitra = Mitra::all(); // ambil semua data mitra
+        // panggil tampilan form di sertai data mitra
+        return view('pemasukan.create', compact('mitra'));
     }
 
     /**
@@ -30,7 +36,29 @@ class TransaksiMasukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // ambil data terakhir dari table
+        $dataTerakhir = DB::table('transaksi_masuks')->latest()->first();
+        // cek kode jika ada data
+        if ($dataTerakhir->kode)
+        {
+            // lanjut membuat kode baru
+            $kode = Docnumber::createDocnum('TM', $dataTerakhir->kode);
+        } else {
+            // buat kode baru
+            $kode = 'TM001' . date('mY', strtotime(Carbon::now()));
+        }
+        // simpan semua data dari inputan / dari form
+        $simpan = TransaksiMasuk::create([
+            'kode' => $kode,
+            'keterangan' => $request->keterangan,
+            'mitra_id' => $request->mitra_id,
+            'nominal' => $request->nominal,
+            'tanggal_transaksi' => $request->tanggal_transaksi,
+        ]);
+        // cek jika proses simpan berhasil
+        if ($simpan) {
+            return redirect()->route('masuk.index');
+        }
     }
 
     /**

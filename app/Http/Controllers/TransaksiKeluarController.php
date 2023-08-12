@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TransaksiKeluar;
+use Carbon\Carbon;
+use App\Helpers\Docnumber;
 use Illuminate\Http\Request;
+use App\Models\TransaksiKeluar;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiKeluarController extends Controller
 {
@@ -22,7 +25,7 @@ class TransaksiKeluarController extends Controller
      */
     public function create()
     {
-        //
+        return view('pengeluaran.create');
     }
 
     /**
@@ -30,7 +33,24 @@ class TransaksiKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $dataTerakhir = DB::table('transaksi_keluars')->latest()->first();
+        if ($dataTerakhir)
+        {
+            $kode = Docnumber::createDocnum('TK', $dataTerakhir->kode);
+        } else {
+            $kode = 'TK001' . date('mY', strtotime(Carbon::now()));
+        }
+        $simpan = TransaksiKeluar::create([
+            'kode' => $kode,
+            'mitra' => $request->mitra,
+            'keterangan' => $request->keterangan,
+            'nominal' => $request->nominal,
+            'tanggal_transaksi' => $request->tanggal_transaksi,
+        ]);
+        if ($simpan) {
+            return redirect()->route('keluar.index');
+        }
     }
 
     /**

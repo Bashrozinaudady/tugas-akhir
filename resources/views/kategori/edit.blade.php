@@ -20,7 +20,7 @@
               <h5 class="card-title">Edit Produk</h5>
 
               <!-- Horizontal Form -->
-              <form method="POST" action="{{route('kategori.update')}}">
+              <form method="POST" action="{{route('kategori.update', $data->id)}}">
                 @method('PUT')
                 @csrf
                 <div class="row mb-3">
