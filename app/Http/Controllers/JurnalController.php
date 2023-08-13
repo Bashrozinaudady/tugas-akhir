@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Jurnal;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class JurnalController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()){
+            $data = Jurnal::orderBy('created_at', 'DESC')->get();
+            return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('journal.index');
     }
 
     /**

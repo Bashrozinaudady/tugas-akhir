@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>INPUT PEMESANAN</h1>
+        <h1>INPUT PESANAN</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('pemesanan.index') }}">Transaksi</a></li>
@@ -81,8 +81,8 @@
                                                         placeholder="angka jumlah" class="form-control" required>
                                                 </td>
                                                 <td>
-                                                    <input type="text" id="total" placeholder="tidak usah di isi"
-                                                        class="form-control" readonly>
+                                                    <input type="text" name="total[]" id="total"
+                                                        placeholder="tidak usah di isi" class="form-control" readonly>
                                                 </td>
                                                 <td class="text-center">
                                                     <a href="javascript:void(0)" id="add"
@@ -103,8 +103,8 @@
                                     <div class="row mb-3">
                                         <label for="inputText" class="col-sm-2 col-form-label">Catatan</label>
                                         <div class="col-sm-10">
-                                            <input type="text" id="keterangan" placeholder="Tulis catan pesanan"
-                                                class="form-control">
+                                            <input type="text" name="keterangan" id="keterangan"
+                                                placeholder="Tulis catan pesanan" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -162,35 +162,40 @@
             let maxField = 10;
             let addButton = ('#add');
             let kotak = ('#detil');
-            let HTML = '<tr>' +
-                '<td>' +
-                '<select name="produk_id[]" id="produk_id" class="form-control">' +
-                '<option value="">--Pilih Produk--</option>' +
-                '@foreach ($produk as $item)' +
-                '<option value="{{ $item->id }}">{{ $item->nama }}</option>' +
-                '@endforeach' +
-                '</select>' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" id="kategori" placeholder="tidak usah di isi" class="form-control" readonly>' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" id="harga" placeholder="tidak usah di isi" class="form-control" readonly>' +
-                '</td>' +
-                '<td>' +
-                '<input type="number" id="jumlah" name="jumlah[]" placeholder="angka jumlah" class="form-control" required>' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" id="total" placeholder="tidak usah di isi" class="form-control" readonly>' +
-                '</td>' +
-                '<td class="text-center">' +
-                '<a href="javascript:void(0)" id="hapus" class="btn btn-outline-warning"><i class="bi bi-trash"></i></a>' +
-                '</td>' +
-                '</tr>';
-            let x = 1; // jumlah baris input pertama
+
             $(addButton).click(function() {
+                let x = 1; // jumlah baris input pertama
                 if (x < maxField) {
                     x++; // perulangan untuk jumlah baris input
+                    let HTML = '<tr>' +
+                        '<td>' +
+                        '<select name="produk_id[]" id="produk_' + x + '" class="form-control">' +
+                        '<option value="">--Pilih Produk--</option>' +
+                        '@foreach ($produk as $item)' +
+                        '<option value="{{ $item->id }}">{{ $item->nama }}</option>' +
+                        '@endforeach' +
+                        '</select>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="text" id="kategori-' + x +
+                        '" placeholder="tidak usah di isi" class="form-control" readonly>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="text" id="harga-' + x +
+                        '" placeholder="tidak usah di isi" class="form-control" readonly>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="number" id="jumlah-' + x +
+                        '" name="jumlah[]" placeholder="angka jumlah" class="form-control" required>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="text" id="total-' + x +
+                        '" placeholder="tidak usah di isi" class="form-control" readonly>' +
+                        '</td>' +
+                        '<td class="text-center">' +
+                        '<a href="javascript:void(0)" id="hapus" class="btn btn-outline-warning"><i class="bi bi-trash"></i></a>' +
+                        '</td>' +
+                        '</tr>';
                     $(kotak).append(HTML); // tambah input baru
                 }
             });
