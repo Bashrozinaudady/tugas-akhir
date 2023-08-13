@@ -32,7 +32,7 @@
                 <div class="row mb-3">
                   <label for="inputKategori" class="col-sm-2 col-form-label">Kategori</label>
                   <div class="col-sm-10">
-                    <select name="kategori_id" id="" class="form-control">
+                    <select name="kategori_id" id="" class="form-control"required>
                     @foreach ($kategori as $item)
                       <option value="{{$item->id}}" {{$data->kategori_id == $item->id ? 'selected' : ''}}>{{$item->nama}}</option>
                     @endforeach

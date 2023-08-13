@@ -42,7 +42,7 @@
                   <td>
                     <a href="{{ route('produk.show', $item->id)}}" class="btn btn-sm btn-primary">Lihat</a>
                     <a href="{{ route('produk.edit', $item->id)}}" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="http://" class="btn btn-sm btn-danger">Hapus</a>
+                    <a href="{{ route('produk.destroy', $item->id)}}" class="btn btn-sm btn-danger">Hapus</a>
                   </td>
                 </tr>    
                 @endforeach

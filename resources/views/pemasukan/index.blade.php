@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pemasukan</h5>
-
+                        <a href="{{ route('masuk.create')}}" class="btn btn-primary btn-sm">Tambah</a>
                         <!-- Default Table -->
                         <table class="table">
                             <thead>
@@ -34,17 +34,18 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td scope="row">{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama_pemesan }}</td>
-                                        <td>{{ $item->nama_produk }}</td>
-                                        <td>{{ $item->nama_kategori }}</td>
+                                        <td>{{ $item->kode }}</td>
+                                        <td>{{ $item->keterangan }}</td>
+                                        <td>{{ $item->nominal }}</td>
+                                        <td>{{ $item->tanggal_transaksi }}</td>
                                         <td>
                                             {{-- <a href="http://" class="btn btn-sm btn-primary">Lihat</a>
                     <a href="http://" class="btn btn-sm btn-warning">Edit</a> --}}
-                                            <form method="POST" action="{{ route('pemesanan.destroy', $item->id) }}">
+                                            <form method="POST" action="{{ route('masuk.destroy', $item->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <a href="" class="btn btn-sm btn-primary">Lihat</a>
-                                                <a href="{{ route('pemesanan.edit', $item->id) }}"
+                                                <a href="{{ route('masuk.edit', $item->id) }}"
                                                     class="btn btn-sm btn-warning">Edit</a>
                                                 <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                             </form>

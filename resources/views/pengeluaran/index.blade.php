@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pengeluaran</h5>
-
+                        <a href="{{ route('keluar.create')}}" class="btn btn-primary btn-sm">Tambah</a>
                         <!-- Default Table -->
                         <table class="table">
                             <thead>
@@ -34,12 +34,13 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td scope="row">{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama_pemesan }}</td>
-                                        <td>{{ $item->nama_produk }}</td>
-                                        <td>{{ $item->nama_kategori }}</td>
+                                        <td>{{ $item->kode }}</td>
+                                        <td>{{ $item->keterangan }}</td>
+                                        <td>{{ $item->nominal }}</td>
+                                        <td>{{ $item->tanggal_transaksi }}</td>
                                         <td>
-                                            <a href="http://" class="btn btn-sm btn-primary">Lihat</a>
-                                            <a href="http://" class="btn btn-sm btn-warning">Edit</a>
+                                            <a href="{{ route('keluar.show', $item->id)}}" class="btn btn-sm btn-primary">Lihat</a>
+                                            <a href="{{ route('keluar.edit', $item->id)}}" class="btn btn-sm btn-warning">Edit</a>
                                             <a href="http://" class="btn btn-sm btn-danger">Hapus</a>
                                         </td>
                                     </tr>
