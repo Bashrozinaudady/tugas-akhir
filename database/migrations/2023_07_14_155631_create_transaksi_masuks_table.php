@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('keterangan');
             $table->unsignedBigInteger('mitra_id');
             $table->timestamp('tanggal_transaksi');
-            $table->integer('nominal');
+            $table->decimal('nominal', 12, 4);
             $table->timestamps();
 
             $table->foreign('mitra_id')->references('id')->on('mitras')->onUpdate('cascade')->onDelete('cascade');

@@ -17,9 +17,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pengeluaran</h5>
-                        <a href="{{ route('keluar.create')}}" class="btn btn-primary btn-sm">Tambah</a>
+                        {{-- <a href="{{ route('keluar.create') }}" class="btn btn-primary btn-sm">Tambah</a> --}}
                         <!-- Default Table -->
-                        <table class="table">
+                        <table class="table data-table">
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
@@ -31,7 +31,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $item)
+                                {{-- @foreach ($data as $item)
                                     <tr>
                                         <td scope="row">{{ $loop->iteration }}</td>
                                         <td>{{ $item->kode }}</td>
@@ -39,12 +39,14 @@
                                         <td>{{ $item->nominal }}</td>
                                         <td>{{ $item->tanggal_transaksi }}</td>
                                         <td>
-                                            <a href="{{ route('keluar.show', $item->id)}}" class="btn btn-sm btn-primary">Lihat</a>
-                                            <a href="{{ route('keluar.edit', $item->id)}}" class="btn btn-sm btn-warning">Edit</a>
+                                            <a href="{{ route('keluar.show', $item->id) }}"
+                                                class="btn btn-sm btn-primary">Lihat</a>
+                                            <a href="{{ route('keluar.edit', $item->id) }}"
+                                                class="btn btn-sm btn-warning">Edit</a>
                                             <a href="http://" class="btn btn-sm btn-danger">Hapus</a>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                         <!-- End Default Table Example -->
@@ -54,3 +56,58 @@
         </div>
     </section>
 @endsection
+
+@push('javascript')
+    {{-- {{ $dataTable->scripts(attributes: ['type' => 'module']) }} --}}
+    <script>
+        $(function() {
+            $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                "bDestroy": true,
+                ajax: "{{ route('keluar.index') }}",
+                // dom: 'Bfrtip',
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf', 'print', {
+                        text: 'TRANSAKSI BARU',
+                        action: function(e, dt, node, config) {
+                            window.location.href = "{{ route('keluar.create') }}"
+                        },
+                        className: 'btn btn-primary'
+                    }
+                ],
+                columns: [{
+                        data: 'DT_RowIndex',
+                        'orderable': false,
+                        'searchable': false,
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'kode',
+                        name: 'kode',
+                    },
+                    {
+                        data: 'keterangan',
+                        name: 'keterangan',
+                    },
+                    {
+                        data: 'nominal',
+                        name: 'nominal',
+                    },
+                    {
+                        data: 'tanggal_transaksi',
+                        name: 'tanggal_transaksi',
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        class: 'text-center',
+                        orderable: false,
+                        searchable: false,
+                    },
+                ]
+            })
+        })
+    </script>
+@endpush

@@ -12,7 +12,8 @@ class MitraController extends Controller
      */
     public function index()
     {
-        //
+        $data = Mitra::all();
+        return view('mitra.index', compact('data'));
     }
 
     /**
@@ -20,7 +21,7 @@ class MitraController extends Controller
      */
     public function create()
     {
-        //
+        return view('mitra.add');
     }
 
     /**
@@ -28,7 +29,16 @@ class MitraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Mitra::create([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'kontak' => $request->kontak,
+        ]);
+
+        if ($data)
+        {
+            return redirect()->route('mitra.index');
+        }
     }
 
     /**
@@ -42,17 +52,25 @@ class MitraController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Mitra $mitra)
+    public function edit($id)
     {
-        //
+        $data = Mitra::where('id', $id)->first();
+
+        return view('mitra.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Mitra $mitra)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Mitra::where('id', $id)->first();
+        $data->nama = $request->nama;
+        $data->alamat = $request->alamat;
+        $data->kontak = $request->kontak;
+        $data->update();
+
+        return redirect()->route('mitra.index');
     }
 
     /**

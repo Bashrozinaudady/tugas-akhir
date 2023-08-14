@@ -81,6 +81,7 @@
                     {
                         data: 'nominal',
                         name: 'nominal',
+                        class: 'text-right',
                     },
 
                     {

@@ -17,6 +17,9 @@ class JurnalController extends Controller
             $data = Jurnal::orderBy('created_at', 'DESC')->get();
             return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('nominal', function($data){
+                return number_format($data->nominal, 2, ',', '.');
+            })
             ->make(true);
         }
         return view('journal.index');

@@ -67,6 +67,27 @@
                 </li>
             </ul>
         </li><!-- End Components Nav -->
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('rekanan/*') ? '' : 'collapsed' }}" data-bs-target="#components-nav"
+                data-bs-toggle="collapse" href="#"
+                aria-expanded="{{ Request::is('rekanan/*') ? true : false }}>
+                <i class="bi
+                bi-menu-button-wide"></i><span>Rekanan</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content {{ Request::is('rekanan/*') ? 'show' : '' }}"
+                data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('sales.index') }}">
+                        <i class="bi bi-circle"></i><span>Sales</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('mitra.index') }}">
+                        <i class="bi bi-circle"></i><span>Mitra</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Components Nav -->
 
         <li class="nav-heading">Pages</li>
 

@@ -3,13 +3,13 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\MitraController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\TransaksiKeluarController;
 use App\Http\Controllers\TransaksiMasukController;
 use App\Http\Controllers\TransaksiOrderController;
-use App\Models\Jurnal;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +44,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('/pemesanan', TransaksiOrderController::class);
         Route::resource('/masuk', TransaksiMasukController::class);
         Route::resource('/keluar', TransaksiKeluarController::class);
+    });
+    
+    Route::group(['prefix'=> 'rekanan'], function(){
+        Route::resource('/sales', SalesController::class);
+        Route::resource('/mitra', MitraController::class);
     });
 
     Route::group(['prefix' => 'laporan'], function(){

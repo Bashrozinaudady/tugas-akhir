@@ -4,20 +4,37 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Helpers\Docnumber;
+use App\Models\Jurnal;
 use Illuminate\Http\Request;
 use App\Models\TransaksiKeluar;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiKeluarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = TransaksiKeluar::all();
+        if ($request->ajax())
+        {
+            $data = TransaksiKeluar::orderBy('created_at', 'DESC')->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($dt) {
+                    $edit = '<a href="keluar/'.$dt->id.'/edit" class="btn btn-sm btn-warning me-2">Edit</a>';
+                    $detil = '<a href="keluar/'.$dt->id.'" class="btn btn-sm btn-info">Detil</a>';
+                    return $edit . $detil;
+                })
+                ->addColumn('nominal', function($data){
+                    return number_format($data->nominal, 2, ',', '.');
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-        return view('pengeluaran.index', compact('data'));
+        return view('pengeluaran.index');
     }
 
     /**
@@ -48,7 +65,14 @@ class TransaksiKeluarController extends Controller
             'nominal' => $request->nominal,
             'tanggal_transaksi' => $request->tanggal_transaksi,
         ]);
-        if ($simpan) {
+
+        $jurnal = Jurnal::create([
+            'kode_transaksi' => $simpan->kode,
+            'keterangan' => $simpan->keterangan,
+            'nominal' => $simpan->nominal,
+        ]);
+
+        if ($simpan && $jurnal) {
             return redirect()->route('keluar.index');
         }
     }
