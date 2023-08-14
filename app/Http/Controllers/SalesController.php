@@ -12,7 +12,8 @@ class SalesController extends Controller
      */
     public function index()
     {
-        return view('sales.index');
+        $data = Sales::all();
+        return view('sales.index', compact('data'));
     }
 
     /**
@@ -20,7 +21,7 @@ class SalesController extends Controller
      */
     public function create()
     {
-        //
+        return view('sales.add');
     }
 
     /**
@@ -28,44 +29,54 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Sales::create([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'kontak' => $request->kontak,
+        ]);
+
+        if ($data)
+        {
+            return redirect()->route('sales.index');
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Sales $mitra)
     {
-        $data = Sales::findOrFail($id);
-        return response()->json($data);
-    }
-    
-    public function get($id)
-    {
-        $data = Sales::findOrFail($id);
-        return response()->json($data);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sales $sales)
+    public function edit($id)
     {
-        //
+        $data = Sales::where('id', $id)->first();
+
+        return view('sales.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sales $sales)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Sales::where('id', $id)->first();
+        $data->nama = $request->nama;
+        $data->alamat = $request->alamat;
+        $data->kontak = $request->kontak;
+        $data->update();
+
+        return redirect()->route('mitra.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sales $sales)
+    public function destroy(Sales $mitra)
     {
         //
     }
