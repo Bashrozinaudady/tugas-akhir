@@ -161,6 +161,7 @@ return [
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
         App\Providers\DocnumberProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Application Service Providers...
          */
