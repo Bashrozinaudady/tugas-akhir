@@ -36,11 +36,11 @@
         </li><!-- End Components Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('laporan/*') ? '' : 'collapsed' }}" data-bs-target="#components-1"
+            <a class="nav-link {{ Request::is('laporan/*') ? 'collapsed' : '' }}" data-bs-target="#components-1"
                 data-bs-toggle="collapse" href="#" aria-expanded="{{ Request::is('laporan/*') ? true : false }}">
                 <i class="bi bi-menu-button-wide"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="components-1" class="nav-content collapse {{ Request::is('laporan/*') ? 'show' : '' }}"
+            <ul id="components-1" class="nav-content {{ Request::is('laporan/*') ? 'show' : '' }}"
                 data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ route('jurnal.index') }}">
@@ -68,7 +68,7 @@
             </ul>
         </li><!-- End Components Nav -->
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('rekanan/*') ? '' : 'collapsed' }}" data-bs-target="#components-nav"
+            <a class="nav-link {{ Request::is('rekanan/*') ? 'collapsed' : '' }}" data-bs-target="#components-nav"
                 data-bs-toggle="collapse" href="#"
                 aria-expanded="{{ Request::is('rekanan/*') ? true : false }}>
                 <i class="bi
