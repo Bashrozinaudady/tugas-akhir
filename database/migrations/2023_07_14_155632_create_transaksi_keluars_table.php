@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('mitra');
             $table->string('keterangan');
             $table->timestamp('tanggal_transaksi');
-            $table->integer('nominal');
+            $table->decimal('nominal', 12, 4);
             $table->timestamps();
         });
     }

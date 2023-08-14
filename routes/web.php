@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\MitraController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalesController;
@@ -42,6 +44,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('/pemesanan', TransaksiOrderController::class);
         Route::resource('/masuk', TransaksiMasukController::class);
         Route::resource('/keluar', TransaksiKeluarController::class);
+    });
+    
+    Route::group(['prefix'=> 'rekanan'], function(){
+        Route::resource('/sales', SalesController::class);
+        Route::resource('/mitra', MitraController::class);
+    });
+
+    Route::group(['prefix' => 'laporan'], function(){
+        Route::resource('jurnal', JurnalController::class);
     });
 
 });

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('transaksi_order_id');
             $table->unsignedBigInteger('produk_id');
-            $table->float('jumlah');
+            $table->integer('jumlah');
+            $table->decimal('nominal', 11, 4)->nullable();
             $table->timestamps();
 
             $table->foreign('transaksi_order_id')->references('id')->on('transaksi_orders')->onUpdate('cascade')->onDelete('cascade');

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode_transaksi');
             $table->string('keterangan');
-            $table->float('jumlah');
+            $table->decimal('nominal', 12, 4);
             $table->string('coa_debet')->nullable();
             $table->string('coa_kredit')->nullable();
             $table->timestamps();

@@ -17,13 +17,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pemasukan</h5>
-                        <a href="{{ route('masuk.create')}}" class="btn btn-primary btn-sm">Tambah</a>
+                        {{-- <a href="{{ route('masuk.create') }}" class="btn btn-primary btn-sm">Tambah</a> --}}
                         <!-- Default Table -->
-                        <table class="table">
+                        <table class="table data-table">
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Kode Transaksi</th>
+                                    <th scope="col">Mitra</th>
                                     <th scope="col">Keterangan</th>
                                     <th scope="col">Nominal Transaksi</th>
                                     <th scope="col">Tanggal Transaksi</th>
@@ -31,7 +32,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $item)
+                                {{-- @foreach ($data as $item)
                                     <tr>
                                         <td scope="row">{{ $loop->iteration }}</td>
                                         <td>{{ $item->kode }}</td>
@@ -39,19 +40,12 @@
                                         <td>{{ $item->nominal }}</td>
                                         <td>{{ $item->tanggal_transaksi }}</td>
                                         <td>
-                                            {{-- <a href="http://" class="btn btn-sm btn-primary">Lihat</a>
-                    <a href="http://" class="btn btn-sm btn-warning">Edit</a> --}}
-                                            <form method="POST" action="{{ route('masuk.destroy', $item->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <a href="" class="btn btn-sm btn-primary">Lihat</a>
-                                                <a href="{{ route('masuk.edit', $item->id) }}"
-                                                    class="btn btn-sm btn-warning">Edit</a>
-                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                            </form>
+                                            <a href="" class="btn btn-sm btn-primary">Lihat</a>
+                                            <a href="{{ route('masuk.edit', $item->id) }}"
+                                                class="btn btn-sm btn-warning">Edit</a>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                         <!-- End Default Table Example -->
@@ -61,3 +55,62 @@
         </div>
     </section>
 @endsection
+
+@push('javascript')
+    {{-- {{ $dataTable->scripts(attributes: ['type' => 'module']) }} --}}
+    <script>
+        $(function() {
+            $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                "bDestroy": true,
+                ajax: "{{ route('masuk.index') }}",
+                // dom: 'Bfrtip',
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf', 'print', {
+                        text: 'TRANSAKSI BARU',
+                        action: function(e, dt, node, config) {
+                            window.location.href = "{{ route('masuk.create') }}"
+                        },
+                        className: 'btn btn-primary'
+                    }
+                ],
+                columns: [{
+                        data: 'DT_RowIndex',
+                        'orderable': false,
+                        'searchable': false,
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'kode',
+                        name: 'kode',
+                    },
+                    {
+                        data: 'mitra',
+                        name: 'mitra',
+                    },
+                    {
+                        data: 'keterangan',
+                        name: 'keterangan',
+                    },
+                    {
+                        data: 'nominal',
+                        name: 'nominal',
+                    },
+                    {
+                        data: 'tanggal_transaksi',
+                        name: 'tanggal_transaksi',
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        class: 'text-center',
+                        orderable: false,
+                        searchable: false,
+                    },
+                ]
+            })
+        })
+    </script>
+@endpush

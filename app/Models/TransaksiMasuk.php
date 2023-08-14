@@ -10,4 +10,9 @@ class TransaksiMasuk extends Model
     use HasFactory;
 
     protected $guarded;
+
+    public function mitra()
+    {
+        return $this->belongsTo(Mitra::class);
+    }
 }

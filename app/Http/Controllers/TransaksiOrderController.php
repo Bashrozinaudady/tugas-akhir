@@ -11,6 +11,7 @@ use App\Models\TransaksiOrder;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use App\DataTables\TransaksiOrdersDataTable;
+use App\Models\Jurnal;
 use App\Models\TransaksiOrderDetil;
 
 class TransaksiOrderController extends Controller
@@ -85,8 +86,17 @@ class TransaksiOrderController extends Controller
                         'transaksi_order_id' => $new->id,
                         'produk_id' => $value,
                         'jumlah' => $request->jumlah[$key],
+                        'nominal' => $request->total[$key],
                     ]);
                 }
+
+                $subTotal = TransaksiOrderDetil::where('transaksi_order_id', $new->id)->sum('nominal');
+
+                Jurnal::create([
+                    'kode_transaksi' => $new->kode,
+                    'keterangan' => $new->keterangan,
+                    'nominal' => $subTotal,
+                ]);
             }
             return redirect()->route('pemesanan.index');
         }
