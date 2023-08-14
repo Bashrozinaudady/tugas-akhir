@@ -74,7 +74,7 @@
                 <i class="bi
                 bi-menu-button-wide"></i><span>Rekanan</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="components-nav" class="nav-content {{ Request::is('rekanan/*') ? 'show' : '' }}"
+            <ul id="components-nav" class="nav-content {{ Request::is('rekanan/*') ? '' : 'show' }}"
                 data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ route('sales.index') }}">
