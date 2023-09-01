@@ -61,7 +61,7 @@
                                         <tbody id="detil">
                                             <tr>
                                                 <td>
-                                                    <select name="produk_id[]" id="produk_id" class="form-control">
+                                                    <select name="produk_id[]" id="produk" data-id="1" class="form-control produk">
                                                         <option value="">--Pilih Produk--</option>
                                                         @foreach ($produk as $item)
                                                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
@@ -138,18 +138,7 @@
                 })
             })
 
-            $('#produk_id').on('change', function() {
-                let id = $(this).val();
-                $.ajax({
-                    url: '/produk/' + id + '/get',
-                    type: 'GET',
-                    success: function(e) {
-                        console.log(e);
-                        $('#harga').val(e.harga);
-                        $('#kategori').val(e.kategori_produk.nama);
-                    }
-                })
-            })
+            
 
             $('#jumlah').on('input', function() {
                 let jml = $(this).val();
@@ -163,13 +152,12 @@
             let addButton = ('#add');
             let kotak = ('#detil');
 
+            let x = 2; // jumlah baris input pertama
             $(addButton).click(function() {
-                let x = 1; // jumlah baris input pertama
                 if (x < maxField) {
-                    x++; // perulangan untuk jumlah baris input
                     let HTML = '<tr>' +
                         '<td>' +
-                        '<select name="produk_id[]" id="produk_' + x + '" class="form-control">' +
+                        '<select name="produk_id[]" id="produk" data-id="'+x+'" class="form-control produk">' +
                         '<option value="">--Pilih Produk--</option>' +
                         '@foreach ($produk as $item)' +
                         '<option value="{{ $item->id }}">{{ $item->nama }}</option>' +
@@ -177,28 +165,41 @@
                         '</select>' +
                         '</td>' +
                         '<td>' +
-                        '<input type="text" id="kategori-' + x +
-                        '" placeholder="tidak usah di isi" class="form-control" readonly>' +
+                        '<input type="text" id="kategori" placeholder="tidak usah di isi" class="form-control kategori" readonly>' +
                         '</td>' +
                         '<td>' +
-                        '<input type="text" id="harga-' + x +
-                        '" placeholder="tidak usah di isi" class="form-control" readonly>' +
+                        '<input type="text" id="harga" placeholder="tidak usah di isi" class="form-control harga" readonly>' +
                         '</td>' +
                         '<td>' +
-                        '<input type="number" id="jumlah-' + x +
-                        '" name="jumlah[]" placeholder="angka jumlah" class="form-control" required>' +
+                        '<input type="number" id="jumlah" name="jumlah[]" placeholder="angka jumlah" class="form-control" required>' +
                         '</td>' +
                         '<td>' +
-                        '<input type="text" id="total-' + x +
-                        '" placeholder="tidak usah di isi" class="form-control" readonly>' +
+                        '<input type="text" id="total" name="total[]" placeholder="tidak usah di isi" class="form-control" readonly>' +
                         '</td>' +
                         '<td class="text-center">' +
                         '<a href="javascript:void(0)" id="hapus" class="btn btn-outline-warning"><i class="bi bi-trash"></i></a>' +
                         '</td>' +
                         '</tr>';
-                    $(kotak).append(HTML); // tambah input baru
-                }
+                        $(kotak).append(HTML); // tambah input baru
+                    }
+                    x++; // perulangan untuk jumlah baris input
             });
+
+            $(kotak).on('change', '#produk', function() {
+                let idProduk = $(this).val();
+                let id = $(this).data('id');
+                let parent = $(this).parent('td').parent('tr');
+                console.log(id);
+                $.ajax({
+                    url: '/produk/' + idProduk + '/get',
+                    type: 'GET',
+                    success: function(e) {
+                        console.log(e);
+                        $('#harga').val(e.harga);
+                        $('#kategori').val(e.kategori_produk.nama);
+                    }
+                })
+            })
 
             $(kotak).on('click', '#hapus', function(e) {
                 e.preventDefault();

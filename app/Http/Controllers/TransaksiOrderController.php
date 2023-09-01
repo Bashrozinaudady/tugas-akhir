@@ -116,7 +116,7 @@ class TransaksiOrderController extends Controller
      */
     public function edit($id)
     {
-        $data = TransaksiOrder::with('sales')->with('produk')->where('id', $id)->first();
+        $data = TransaksiOrder::with('transaksi_order_detils')->with('sales')->with('produk')->where('id', $id)->first();
         $produk = Produk::all();
         $sales = Sales::all();
         return view('pemesanan.edit', compact(['data', 'produk', 'sales']));
@@ -125,9 +125,28 @@ class TransaksiOrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TransaksiOrder $transaksiOrder)
+    public function update(Request $request, $id)
     {
-        //
+        $data = TransaksiOrder::where('id', $id)->first();
+
+        $data->sales_id = $request->sales_id;
+        $data->keterangan = $request->keterangan;
+
+        $update = $data->update();
+
+        if ($update) {
+            // cek detil transaksi, jika ada simpan
+            if (count($request->produk_id) > 0) {
+                $detil = TransaksiOrderDetil::where('transaksi_order_id', $update->id)->get();
+                foreach ($detil as $key => $value) {
+                    $value->produk_id = $request->produk_id[$key];
+                    $value->jumlah = $request->jumlah[$key];
+                    $value->nominal = $request->total[$key];
+                    $value->update();
+                }
+            }
+            return redirect()->route('pemesanan.index');
+        }
     }
 
     /**
