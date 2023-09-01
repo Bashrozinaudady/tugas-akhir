@@ -61,13 +61,13 @@ class KategoriProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = KategoriProduk::findOrFail('$id');
+        $data = KategoriProduk::findOrFail($id);
         $data->nama = $request->nama;
 
         $data->update();
 
         if($data) {
-            return redirect()->route('kategori.update');
+            return redirect()->route('kategori.index');
         }
     }
 

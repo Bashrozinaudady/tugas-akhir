@@ -25,8 +25,8 @@ class TransaksiMasukController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($dt) {
                     $edit = '<a href="masuk/'.$dt->id.'/edit" class="btn btn-sm btn-warning me-2">Edit</a>';
-                    $detil = '<a href="masuk/'.$dt->id.'" class="btn btn-sm btn-info">Detil</a>';
-                    return $edit . $detil;
+                    // $detil = '<a href="masuk/'.$dt->id.'" class="btn btn-sm btn-info">Detil</a>';
+                    return $edit;
                 })
                 ->addColumn('mitra', function($data){
                     return $data->mitra->nama;
@@ -90,9 +90,10 @@ class TransaksiMasukController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TransaksiMasuk $transaksiMasuk)
+    public function show(TransaksiMasuk $id)
     {
-        //
+        $data = TransaksiMasuk::with('transaksi_masuks')->where('id', $id)->first();
+        return view('pemasukan.show', compact('data'));
     }
 
     /**
@@ -131,3 +132,4 @@ class TransaksiMasukController extends Controller
         //
     }
 }
+

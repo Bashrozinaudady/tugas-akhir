@@ -24,6 +24,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
+                                    <th scope="col">Nomor Anggota</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Kontak</th>
                                     <th scope="col">Alamat</th>
@@ -34,16 +35,19 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td scope="row">{{ $loop->iteration }}</td>
+                                        <td>{{ $item->nomor_anggota }}</td>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->no_hp }}</td>
                                         <td>{{ $item->alamat }}</td>
                                         <td>
                                             {{-- <a href="{{ route('mitra.show', $item->id) }}"
                                                 class="btn btn-sm btn-primary">Lihat</a> --}}
-                                            <a href="{{ route('sales.edit', $item->id) }}"
-                                                class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="{{ route('sales.destroy', $item->id) }}"
-                                                class="btn btn-sm btn-danger">Hapus</a>
+                                        <form method="POST" action="{{route('sales.destroy', $item->id)}}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="{{ route('sales.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                        </form>
                                         </td>
                                     </tr>
                                 @endforeach

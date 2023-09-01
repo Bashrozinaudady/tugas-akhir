@@ -36,7 +36,7 @@
                             <div class="row mb-3">
                                 <label for="inputHarga" class="col-sm-2 col-form-label">Kontak</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="kontak" class="form-control" id="inputHarga">
+                                    <input type="text" name="no_hp" class="form-control" required >
                                 </div>
                             </div>
 

@@ -40,10 +40,13 @@
                                         <td>
                                             {{-- <a href="{{ route('mitra.show', $item->id) }}"
                                                 class="btn btn-sm btn-primary">Lihat</a> --}}
+                                        <form method="POST" action="{{route('mitra.destroy', $item->id)}}">
+                                            @csrf
+                                            @method('DELETE')
                                             <a href="{{ route('mitra.edit', $item->id) }}"
                                                 class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="{{ route('mitra.destroy', $item->id) }}"
-                                                class="btn btn-sm btn-danger">Hapus</a>
+                                             <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                         </form>
                                         </td>
                                     </tr>
                                 @endforeach

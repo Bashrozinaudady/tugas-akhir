@@ -24,8 +24,8 @@ class TransaksiKeluarController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($dt) {
                     $edit = '<a href="keluar/'.$dt->id.'/edit" class="btn btn-sm btn-warning me-2">Edit</a>';
-                    $detil = '<a href="keluar/'.$dt->id.'" class="btn btn-sm btn-info">Detil</a>';
-                    return $edit . $detil;
+                    // $detil = '<a href="keluar/'.$dt->id.'" class="btn btn-sm btn-info">Detil</a>';
+                    return $edit;
                 })
                 ->addColumn('nominal', function($data){
                     return number_format($data->nominal, 2, ',', '.');

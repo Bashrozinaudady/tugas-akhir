@@ -40,9 +40,13 @@
                   <td>{{ $item->keterangan }}</td>
                   <td>{{number_format($item->harga,2,',','.')}}</td>
                   <td>
-                    <a href="{{ route('produk.show', $item->id)}}" class="btn btn-sm btn-primary">Lihat</a>
-                    <a href="{{ route('produk.edit', $item->id)}}" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="{{ route('produk.destroy', $item->id)}}" class="btn btn-sm btn-danger">Hapus</a>
+                    <form method="POST" action="{{route('produk.destroy', $item->id)}}">
+                      @csrf
+                      @method('DELETE')
+                      <a href="{{ route('produk.show', $item->id)}}" class="btn btn-sm btn-primary">Lihat</a>
+                      <a href="{{ route('produk.edit', $item->id)}}" class="btn btn-sm btn-warning">Edit</a>        
+                      <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                    </form>
                   </td>
                 </tr>    
                 @endforeach

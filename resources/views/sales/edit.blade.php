@@ -19,9 +19,16 @@
                         <h5 class="card-title">Edit Sales</h5>
 
                         <!-- Horizontal Form -->
-                        <form method="POST" action="{{ route('mitra.update', $data->id) }}">
+                        <form method="POST" action="{{ route('sales.update', $data->id) }}">
                             @csrf
                             @method('PUT')
+                            <div class="row mb-3">
+                                <label for="inputNama" class="col-sm-2 col-form-label">Nomor Anggota</label>
+                                <div class="col-sm-10">
+                                    <input type="text"@readonly(true) value="{{ $data->nomor_anggota }}"  class="form-control"
+                                        id="inputNama">
+                                </div>
+                            </div>
                             <div class="row mb-3">
                                 <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
                                 <div class="col-sm-10">
@@ -39,8 +46,8 @@
                             <div class="row mb-3">
                                 <label for="inputHarga" class="col-sm-2 col-form-label">Kontak</label>
                                 <div class="col-sm-10">
-                                    <input type="text" value="{{ $data->kontak }}" name="kontak" class="form-control"
-                                        id="inputHarga">
+                                    <input type="text" value="{{ $data->no_hp }}" name="no_hp" class="form-control"
+                                        id="inputHarga" required>
                                 </div>
                             </div>
 

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
+use App\Helpers\Docnumber;
+use Illuminate\Support\Facades\DB;
 use App\Models\Sales;
 use Illuminate\Http\Request;
 
@@ -29,10 +31,19 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
+
+        $nomorTerakhir = DB::table('sales')->latest()->first();
+        if ($nomorTerakhir)
+        {
+            $nomor = Docnumber::createDocnum('A', $nomorTerakhir->nomor_anggota);
+        } else {
+            $nomor = 'A001';
+        }
         $data = Sales::create([
+            'nomor_anggota' => $nomor,
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            'kontak' => $request->kontak,
+            'no_hp' => $request->no_hp,
         ]);
 
         if ($data)
@@ -67,17 +78,19 @@ class SalesController extends Controller
         $data = Sales::where('id', $id)->first();
         $data->nama = $request->nama;
         $data->alamat = $request->alamat;
-        $data->kontak = $request->kontak;
+        $data->no_hp = $request->no_hp;
         $data->update();
 
-        return redirect()->route('mitra.index');
+        return redirect()->route('sales.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sales $mitra)
+    public function destroy($id)
     {
-        //
+        $data = Sales::where('id', $id)->delete();
+
+        return redirect()->route('sales.index');
     }
 }
