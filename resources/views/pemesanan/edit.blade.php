@@ -14,13 +14,14 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-                <form class="was-required" action="{{ route('pemesanan.store') }}" method="post">
+                <form class="was-required" action="{{ route('pemesanan.update', $data->id) }}" method="post">
                     <div class="card">
                         <div class="card-header">
 
                         </div>
                         <div class="card-body">
                             @csrf
+                            @method('PUT')
                             {{-- jangan lupa untuk menambah route store dan @csrf --}}
                             <div class="row mt-3">
                                 <div class="col-md-6">
@@ -30,7 +31,7 @@
                                             <select name="sales_id" id="sales_id" class="form-control">
                                                 <option value="">--Pilih Sales / Mitra--</option>
                                                 @foreach ($sales as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                    <option value="{{ $item->id }}" {{$item->id == $data->sales_id ? 'selected' : ''}}>{{ $item->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -40,7 +41,7 @@
                                     <div class="row mb-3">
                                         <label for="inputText" class="col-sm-4 col-form-label">Kode Sales</label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="kode_sales" placeholder="tidak usah di isi"
+                                            <input type="text" value="{{ $data->sales->nomor_anggota}}" id="kode_sales" placeholder="tidak usah di isi"
                                                 class="form-control" readonly>
                                         </div>
                                     </div>
@@ -59,38 +60,38 @@
                                             </tr>
                                         </thead>
                                         <tbody id="detil">
+                                            @foreach ($data->transaksi_order_detils as $items)
                                             <tr>
                                                 <td>
-                                                    <select name="produk_id[]" id="produk_id" class="form-control">
+                                                    <select name="produk_id[]" id="produk_1" data-id="1" class="form-control produk">
                                                         <option value="">--Pilih Produk--</option>
                                                         @foreach ($produk as $item)
-                                                        <option value="{{ $item->id }}"
-                                                            {{ $item->id === $data->produk_id ? 'selected' : '' }}>
-                                                            {{ $item->nama }}</option>
-                                                    @endforeach
+                                                            <option value="{{ $item->id }}" {{$item->id == $items->produk_id ? 'selected' : ''}}>{{ $item->nama }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" id="kategori" placeholder="tidak usah di isi"
+                                                    <input type="text" value="{{$items->produk->kategori_produk->nama}}" id="kategori" placeholder="tidak usah di isi"
                                                         class="form-control" readonly>
                                                 </td>
                                                 <td>
-                                                    <input type="text" id="harga" placeholder="tidak usah di isi"
+                                                    <input type="text" value="{{$items->produk->harga}}" id="harga" placeholder="tidak usah di isi"
                                                         class="form-control" readonly>
                                                 </td>
                                                 <td>
-                                                    <input type="number" id="jumlah" name="jumlah[]"
+                                                    <input type="number" value="{{$items->jumlah}}" id="jumlah" name="jumlah[]"
                                                         placeholder="angka jumlah" class="form-control" required>
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="total[]" id="total"
+                                                    <input type="text" value="{{$items->nominal}}" name="total[]" id="total"
                                                         placeholder="tidak usah di isi" class="form-control" readonly>
                                                 </td>
                                                 <td class="text-center">
                                                     <a href="javascript:void(0)" id="add"
                                                         class="btn btn-outline-primary"><i class="bi bi-plus"></i></a>
                                                 </td>
-                                            </tr>
+                                            </tr>                                                
+                                            @endforeach
                                         </tbody>
                                         <tfoot>
                                             <tr class="table-secondary table-borderred">

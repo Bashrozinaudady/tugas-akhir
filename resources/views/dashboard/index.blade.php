@@ -132,7 +132,7 @@
                     </div><!-- End Customers Card -->
 
                     <!-- Reports -->
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                         <div class="card">
 
                             <div class="filter">
@@ -216,10 +216,10 @@
                             </div>
 
                         </div>
-                    </div><!-- End Reports -->
+                    </div><!-- End Reports --> --}}
 
                     <!-- Recent Sales -->
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                         <div class="card recent-sales overflow-auto">
 
                             <div class="filter">
@@ -292,7 +292,7 @@
                             </div>
 
                         </div>
-                    </div><!-- End Recent Sales -->
+                    </div><!-- End Recent Sales --> --}}
 
                 </div>
             </div><!-- End Left side columns -->
