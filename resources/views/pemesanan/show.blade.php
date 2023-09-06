@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>DATA PESANAN</h1>
+        <h1>DATA PEMESANAN</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('pemesanan.index') }}">Transaksi</a></li>
@@ -92,9 +92,6 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ route('pemesanan.edit', $data->id) }}" class="btn btn-warning float-end"><i
-                                class="bi bi-pencil"></i>
-                            Edit</a>
                         <button type="button" onclick="window.history.back()" class="btn btn-secondary float-end me-3"><i
                                 class="bi bi-arrow-left-circle"></i>
                             Kembali</button>

@@ -118,12 +118,12 @@
             </a>
         </li><!-- End Profile Page Nav --> --}}
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link collapsed" href="javascript:void(0)">
                 <i class="bi bi-lock"></i>
                 <span>Keluar</span>
             </a>
-        </li>
+        </li> --}}
 
     </ul>
 

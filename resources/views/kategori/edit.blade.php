@@ -17,7 +17,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Edit Produk</h5>
+              <h5 class="card-title">Edit Kategori</h5>
 
               <!-- Horizontal Form -->
               <form method="POST" action="{{route('kategori.update', $data->id)}}">
@@ -26,7 +26,7 @@
                 <div class="row mb-3">
                   <label for="inputNamaKategori" class="col-sm-2 col-form-label">Nama Kategori</label>
                   <div class="col-sm-10">
-                    <input value="{{$data->produk}}" name="nama" type="text" class="form-control" id="inputNamaKategori">
+                    <input value="{{$data->nama}}" name="nama" type="text" class="form-control" id="inputNamaKategori">
                   </div>
                 </div>
 

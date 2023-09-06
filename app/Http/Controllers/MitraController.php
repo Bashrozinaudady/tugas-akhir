@@ -76,8 +76,10 @@ class MitraController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Mitra $mitra)
+    public function destroy($id)
     {
-        //
+        $data = Mitra::where('id', $id)->delete();
+
+        return redirect()->route('mitra.index');
     }
 }

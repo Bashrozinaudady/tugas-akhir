@@ -14,7 +14,7 @@ class SalesSeeder extends Seeder
     public function run(): void
     {
         Sales::create([
-            'nomor_anggota' => 'A001',
+            'nomor_anggota' => 'A001092023',
             'nama' => 'ahmad',
             'alamat' => 'campaka',
             'no_hp' => '1234567890',
