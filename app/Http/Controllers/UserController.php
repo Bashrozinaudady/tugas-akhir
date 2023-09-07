@@ -32,7 +32,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = User::create([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        if ($data) {
+            $data->assignRole($request->role);
+
+            return redirect()->route('user.index');
+        }
     }
 
     /**
@@ -40,7 +50,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = User::with('roles')->where('id', $id)->first();
+
+        return view('profile.index', compact('data'));
     }
 
     /**
