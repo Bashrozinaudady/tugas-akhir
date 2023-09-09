@@ -8,7 +8,7 @@
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
-        @hasanyrole('sales')
+        @hasanyrole('sales|mitra')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('transaksi/*') ? '' : 'collapsed' }}" data-bs-target="#components-1"
                     data-bs-toggle="collapse" href="#"
