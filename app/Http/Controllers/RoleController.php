@@ -13,7 +13,7 @@ class RoleController extends Controller
     public function index()
     {
         $data = Role::all();
-        return view('profile.role', compact('data'));
+        return view('jabatan.index', compact('data'));
     }
 
     /**
@@ -21,7 +21,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('jabatan.add');
     }
 
     /**
@@ -29,7 +29,13 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Role::create([
+            'name' => $request->name
+        ]);
+
+        if ($data) {
+            return redirect()->route('jabatan.index');
+        }
     }
 
     /**

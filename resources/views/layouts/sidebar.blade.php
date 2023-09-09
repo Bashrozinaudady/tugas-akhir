@@ -8,6 +8,23 @@
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
+        @hasanyrole('sales')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('transaksi/*') ? '' : 'collapsed' }}" data-bs-target="#components-1"
+                    data-bs-toggle="collapse" href="#"
+                    aria-expanded="{{ Request::is('transaksi/*') ? true : false }}">
+                    <i class="bi bi-menu-button-wide"></i><span>Transaksi</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-1" class="nav-content collapse {{ Request::is('transaksi/*') ? 'show' : '' }}"
+                    data-bs-parent="#sidebar-nav">
+                    <li class="nav-item {{ Request::is('transaksi/pemesanan') ? 'active' : '' }}">
+                        <a href="{{ route('pemesanan.index') }}">
+                            <i class="bi bi-circle"></i><span>Pemesanan</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Components Nav -->
+        @endhasanyrole
         @hasanyrole('admin|staf')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('transaksi/*') ? '' : 'collapsed' }}" data-bs-target="#components-1"
